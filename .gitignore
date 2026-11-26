@@ -1,0 +1,12 @@
+# 올리는 것만 허용: 사이트, 빌드 스크립트, 시트 양식, 추가 수집 목차
+/*
+!/.gitignore
+!/README.md
+!/index.html
+!/build_site.py
+!/docs/
+!/03_선생님작업/
+!/01_자료조사/
+/01_자료조사/*
+!/01_자료조사/toc_extra.jsonl
+*.docx
