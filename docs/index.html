@@ -240,18 +240,20 @@ td a:hover{text-decoration:underline}
 .types{list-style:none;padding:0!important;margin:12px 0 0!important;gap:0 32px!important;grid-template-columns:repeat(auto-fill,minmax(min(100%,420px),1fr))}
 .types li{padding:10px 0;display:grid;gap:2px}
 .types .th{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
-.types .th b{font-size:16px}
+.types .th b{font-size:16px;font-weight:700}
 .types .n{font-size:14px;font-weight:600;color:var(--sub);font-variant-numeric:tabular-nums;white-space:nowrap}
 .types p{margin:0;font-size:14px;line-height:21px;color:var(--sub)}
 .types .ex a{text-decoration:none}
 .types .ex a:hover{text-decoration:underline}
 .take{margin:16px 0 0!important;font-size:14px;line-height:21px;color:var(--sub)}
 #types{scroll-margin-top:16px}
-.rkh{margin:16px 0 8px!important;font-size:15px!important;color:var(--sub)!important}
-.rank{list-style:none;padding:0!important;margin:0!important;display:grid!important;grid-template-columns:repeat(auto-fill,minmax(min(100%,360px),1fr));gap:4px 32px!important}
+.rkh{margin:24px 0 10px!important;font-size:17px!important;line-height:25.5px;font-weight:700;color:var(--fg)!important}
+.rkh+.types{margin-top:0!important}
+.rkh.sep{padding-top:24px;border-top:1px solid var(--line)}
+.rank{list-style:none;padding:8px 16px!important;margin:0!important;background:var(--quiet);border-radius:12px;display:grid!important;grid-template-columns:repeat(auto-fill,minmax(min(100%,360px),1fr));gap:4px 32px!important}
 .rank li{display:grid;grid-template-columns:2em 1fr auto;gap:8px;align-items:baseline;font-size:14px;line-height:21px;padding:4px 0}
 .rank .r{font-weight:700;color:var(--accent-text);font-variant-numeric:tabular-nums}
-.rank a{text-decoration:none;color:var(--fg);font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rank a{text-decoration:none;color:var(--fg);font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .rank a:hover{color:var(--accent-text)}
 .rank .ty{color:var(--sub);font-size:13px;white-space:nowrap}
 .types .rk{font-size:12px;color:var(--muted)}
@@ -442,7 +444,7 @@ td a:hover{text-decoration:underline}
         <p class="note">목차가 있는 86권을 큰 제목 두 단계까지 보고 나눴습니다(2026년 11월 26일). 경계에 걸친 책은 가까운 쪽에 넣었습니다.</p>
     <h4 class="rkh">판매지수 상위 10권은 이렇게 묶었습니다</h4>
     <ol class="rank" id="rank"></ol>
-    <h4 class="rkh">짜임 11가지</h4>
+    <h4 class="rkh sep">짜임 11가지</h4>
         <ol class="types">
           <li><div class="th"><b>주제 안에서 툴 활용</b><span class="n">9권</span></div><p>장이 수업·업무·학급경영 같은 주제이고, 툴은 그 안에서 나옵니다.</p><p class="ex" data-ids="1,5,280"></p></li>
           <li><div class="th"><b>주제 파트 × 툴 장</b><span class="n">6권</span></div><p>큰 파트는 주제, 그 아래 장은 툴 하나씩입니다. 판매 5·6위가 이 짜임입니다.</p><p class="ex" data-ids="13,24,162"></p></li>
