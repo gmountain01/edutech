@@ -31,7 +31,7 @@ header.board{background:var(--board);color:var(--board-fg);padding-inline:16px;p
 header .in{max-width:1200px;margin:0 auto}
 h1{font-family:var(--f-display);font-size:clamp(26px,4vw,34px);margin:0 0 6px;text-wrap:balance;letter-spacing:-.01em}
 header p{margin:0;opacity:.85;font-size:14.5px}
-header .status{margin-left:12px;font-size:13px;opacity:.75}
+header .status{margin-left:12px;font-size:13px;opacity:.75;white-space:nowrap}
 .tabs{display:flex;gap:4px;flex-wrap:wrap;margin-top:22px}
 a.tab{text-decoration:none;display:inline-block;color:var(--board-fg);opacity:.75;padding:11px 18px;border-radius:8px 8px 0 0;font-weight:600;font-size:16px}
 a.tab:hover{opacity:1}
@@ -62,16 +62,6 @@ a{color:var(--accent)}
 .gl{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start}
 .gl>div{display:grid;gap:20px}
 @media (max-width:900px){.gl{grid-template-columns:1fr}}
-.steps{list-style:none;padding:0!important;gap:14px!important}
-.steps li{display:grid;grid-template-columns:32px 1fr;gap:12px}
-.steps .n{font-weight:700;color:var(--board);background:var(--chalk);border-radius:50%;width:30px;height:30px;display:grid;place-items:center;font-size:15px}
-.steps b{display:block;font-size:16.5px}
-.steps span{color:var(--sub);font-size:15px}
-.ask{background:var(--chalk-soft);border-color:var(--chalk)}
-.check{list-style:none;padding:0!important}
-.check li{padding-left:30px;position:relative}
-.check li::before{content:"";position:absolute;left:2px;top:6px;width:17px;height:17px;border:1.5px solid var(--fg);border-radius:4px;background:var(--surface)}
-.ask .go{margin:14px 0 0;font-weight:700}
 .qs li b{display:block}
 .qs li span{color:var(--sub);font-size:15px}
 .bars{display:grid;gap:8px}
@@ -97,7 +87,7 @@ td a:hover{text-decoration:underline}
 
 /* 에듀테크 툴: 분류별 묶음 */
 .grp{margin-top:28px}
-.grp>h3{font-size:18px;font-weight:700;margin:0 0 12px;display:flex;align-items:baseline;gap:8px}
+.grp>h3{font-size:19px;font-weight:700;margin:0 0 12px;display:flex;align-items:baseline;gap:8px}
 .grp>h3 small{font-size:14px;color:var(--muted);font-weight:500}
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:14px}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:grid;gap:10px;align-content:start;scroll-margin-top:16px}
@@ -123,11 +113,11 @@ td a:hover{text-decoration:underline}
 .bk{display:grid;grid-template-columns:minmax(0,400px) minmax(0,1fr);gap:20px;align-items:start}
 @media (max-width:900px){.bk{grid-template-columns:1fr}}
 .blist{background:var(--surface);border:1px solid var(--line);border-radius:14px;max-height:calc(100vh - 120px);overflow:auto;position:sticky;top:12px}
-@media (max-width:900px){.blist{position:static;max-height:420px}}
+@media (max-width:900px){.blist{position:static;max-height:min(420px,60vh);scroll-margin-top:12px}.bview{scroll-margin-top:12px}}
 .brow{display:grid;grid-template-columns:1fr auto;gap:2px 12px;width:100%;text-align:left;font:inherit;color:inherit;background:none;border:0;border-bottom:1px solid var(--line);padding:12px 16px;cursor:pointer}
 .brow:hover{background:var(--accent-soft)}
-.brow[aria-selected="true"]{background:var(--accent-soft)}
-.brow[aria-selected="true"] .t{color:var(--accent)}
+.brow[aria-pressed="true"]{background:var(--accent-soft)}
+.brow[aria-pressed="true"] .t{color:var(--accent)}
 .brow .t{font-weight:600;font-size:15px;line-height:1.45}
 .brow .m{grid-column:1;font-size:13px;color:var(--muted)}
 .brow .s{grid-row:1/3;grid-column:2;font-size:13.5px;font-variant-numeric:tabular-nums;color:var(--sub);text-align:right;line-height:1.3}
@@ -155,9 +145,7 @@ td a:hover{text-decoration:underline}
 .narrow{max-width:860px;display:grid;gap:20px}
 .log{max-width:860px;display:grid;gap:14px}
 .log .d{font-weight:700;font-size:18px;margin:0 0 8px}
-</style>
 
-<style>
 /* 단계 구성: STEP 안에 ① 회의 안건 ② 볼 자료 ③ 선생님 작업 */
 .stepnav{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:stretch;margin:24px 0 4px;padding:12px 14px;background:var(--surface);border:1px solid var(--line);border-radius:14px}
 .stepnav .grp{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0}
@@ -177,37 +165,71 @@ a.tab .badge{background:var(--chalk);color:var(--board)}
 .agenda>li::before{counter-increment:a;content:counter(a);font-weight:700;color:var(--board-fg);background:var(--board);border-radius:8px;width:30px;height:30px;display:grid;place-items:center;font-size:15px}
 .agenda b{display:block;font-size:16.5px}
 .agenda .d{color:var(--sub);font-size:15px}
+.agenda .crits{margin:4px 0 2px;gap:2px;font-size:15px;color:var(--sub)}
 .agenda .go{display:inline-block;margin-top:4px;font-size:14px;font-weight:600;text-decoration:none}
 .agenda .go:hover{text-decoration:underline}
-/* 선생님 작업 */
-.msg{font-size:14.5px;padding:10px 14px;border-radius:10px;background:var(--warn-soft);color:var(--warn)}
+/* 선생님 과제: 안건 첫 화면과 ③ 선생님 작업 위에 같은 마감·시트 줄 */
+.msg{display:inline-block;font-size:14.5px;font-weight:600;padding:2px 10px;border-radius:6px;background:var(--warn-soft);color:var(--warn)}
+.task{display:grid;gap:10px;padding:20px 22px}
+.task h3{margin:0;font-size:19px;font-weight:700;letter-spacing:-.01em}
+.task p{margin:0;color:var(--sub)}
+.tsteps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;counter-reset:s}
+.tsteps li{background:var(--surface);border-radius:10px;padding:10px 12px;display:grid;gap:2px;align-content:start;counter-increment:s}
+.tsteps b{font-size:15.5px}
+.tsteps b::before{content:counter(s) ". ";color:var(--muted)}
+.tsteps span{font-size:13px;color:var(--muted)}
+@media (max-width:520px){.tsteps{grid-template-columns:1fr}.tsteps li{grid-template-columns:auto 1fr;align-items:baseline;gap:10px}}
+.tmeta{display:grid;grid-template-columns:auto 1fr;gap:8px 14px;align-items:center;margin:0}
+.tmeta dt{font-size:14px;font-weight:700;color:var(--sub)}
+.tmeta dd{margin:0}
+.tbar{grid-template-columns:auto auto auto 1fr;background:var(--chalk-soft);border:1px solid var(--chalk);border-radius:14px;padding:12px 20px;margin:0 0 20px}
+@media (max-width:520px){.tbar{grid-template-columns:auto 1fr}}
+.task .go{font-size:14px;font-weight:600;text-decoration:none}
+.task .go:hover{text-decoration:underline}
+/* 툴 화면: 선별 기준 칩 */
+.crit{border:0;padding:0;min-width:0;display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;margin:0 0 16px;font-size:14px}
+.crit legend{float:left;padding:0}
+.crit .lab{font-weight:700;color:var(--sub);margin-right:4px}
+.crit label{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border:1px solid var(--line);border-radius:999px;background:var(--surface);font-weight:600;color:var(--sub);cursor:pointer;min-height:36px}
+.crit label:has(input:checked){border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+.crit label:has(input:focus-visible){outline:2px solid var(--accent);outline-offset:2px}
+.crit .note{margin-left:4px}
+/* 검색 결과가 없을 때 */
+.empty{background:var(--surface);border:1px dashed var(--line);border-radius:14px;padding:28px 20px;text-align:center;color:var(--sub);display:grid;gap:10px;justify-items:center}
+.empty p{margin:0}
+.lnk{appearance:none;font:inherit;font-size:15px;font-weight:600;color:var(--accent);background:none;border:1px solid var(--accent);border-radius:8px;padding:6px 14px;cursor:pointer}
+.lnk:hover{background:var(--accent-soft)}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.back{display:none;font-size:14px;font-weight:600;text-decoration:none}
+@media (max-width:900px){.back{display:inline-block}}
 /* 브라우저 기본 표면도 같은 색으로 */
 html{scroll-behavior:smooth;scrollbar-color:var(--line) transparent}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 ::selection{background:var(--chalk-soft);color:var(--fg)}
 body{accent-color:var(--accent);caret-color:var(--accent)}
-/* 휴대폰: 탭·STEP 메뉴를 한 줄로(옆으로 밀어 보기), 누르기 쉬운 높이 */
+/* 휴대폰: 단계 탭은 "STEP 1·STEP 2·이력"만 남겨 한 줄에 다 보이게, STEP 메뉴는 줄바꿈, 누르기 쉬운 높이 */
 @media (max-width:700px){
-  .tabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-inline:-16px;padding-inline:16px}
-  .tabs::-webkit-scrollbar{display:none}
-  a.tab{white-space:nowrap;padding:11px 14px}
-  .stepnav{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;gap:6px;padding:10px 12px}
-  .stepnav::-webkit-scrollbar{display:none}
-  .stepnav .grp{flex-wrap:nowrap}
+  .tabs{flex-wrap:nowrap;gap:2px}
+  a.tab{white-space:nowrap;padding:11px 10px;flex:1 1 auto;text-align:center}
+  a.tab .tl{display:none}
+  .stepnav{gap:8px;padding:10px 12px}
+  .stepnav .grp{gap:6px}
+  .stepnav .lab{flex-basis:100%;margin:2px 0 -2px}
   .stepnav a{white-space:nowrap;min-height:40px;display:inline-flex;align-items:center}
-  .stepnav .lab{white-space:nowrap}
-  .controls select{flex:1 1 140px}
+  .controls input{flex-basis:100%}
+  .controls select{flex:1 1 0;min-width:0}
+  header .status{display:block;margin-left:0}
 }
-.btn{appearance:none;font:inherit;font-weight:700;font-size:16px;padding:10px 22px;border-radius:10px;border:0;background:var(--accent);color:var(--surface);cursor:pointer}
-.locked{border-style:dashed;color:var(--sub)}
+.btn{display:inline-block;text-decoration:none;font-weight:700;font-size:15px;padding:8px 18px;border-radius:10px;background:var(--accent);color:var(--surface)}
+.btn:hover{filter:brightness(1.1)}
 </style>
 
 <header class="board"><div class="in">
   <h1>AI 에듀테크 3권 진행 현황</h1>
-  <p>교사용 AI 시리즈 3권 기획 공유<span class="status">작성 날짜: 2026년 11월 26일</span></p>
+  <p>교사용 AI 시리즈 3권 기획 공유<span class="status">마지막 수정: 2026년 11월 26일</span></p>
   <nav class="tabs" aria-label="단계">
-    <a class="tab" href="#agenda" data-step="1">STEP 1 가목차 짜기<span class="badge">진행 중</span></a>
-    <a class="tab" href="#step2" data-step="2">STEP 2 가목차 검토<span class="badge off">다음 회의</span></a>
+    <a class="tab" href="#agenda" data-step="1">STEP 1<span class="tl"> 가목차 짜기</span><span class="badge"><span class="vh">, </span>진행 중</span></a>
+    <a class="tab" href="#step2" data-step="2">STEP 2<span class="tl"> 가목차 검토</span><span class="badge off"><span class="vh">, </span>다음 회의</span></a>
     <a class="tab" href="#log" data-step="log">작업 이력</a>
   </nav>
 </div></header>
@@ -229,14 +251,26 @@ body{accent-color:var(--accent);caret-color:var(--accent)}
   </div>
   <div class="gl">
     <div>
-      <div class="goal"><b>이 단계가 끝나면</b>선생님들이 고른 툴과, 그 툴로 짠 가목차 초안이 시트에 들어옵니다.</div>
+      <section class="goal task" aria-labelledby="taskH">
+        <h3 id="taskH">선생님 과제</h3>
+        <p>고른 툴과, 그 툴로 짠 가목차 초안을 구글 시트에 적어 오시면 이 단계가 끝납니다.</p>
+        <ol class="tsteps">
+          <li><b>툴 선별</b><span>01_툴선별 탭</span></li>
+          <li><b>가목차 작성</b><span>02_가목차 탭</span></li>
+          <li><b>추가 제안(선택)</b><span>03_추가 제안 탭</span></li>
+        </ol>
+        <dl class="tmeta"><dt>마감</dt><dd class="due"></dd><dt>시트</dt><dd class="sheet"></dd></dl>
+        <a class="go" href="#work">쓰는 방법 자세히: ③ 선생님 작업 →</a>
+      </section>
       <section class="box">
         <h3>오늘 회의 안건</h3>
         <ol class="agenda">
-          <li><div><b>3권 시장 현황 공유</b><span class="d">참고 도서에 많이 나온 툴과 거의 안 나온 툴, 경쟁서는 어떻게 묶었는지 봅니다.</span><br><a class="go" href="#books">② 볼 자료: 참고 도서 →</a></div></li>
-          <li><div><b>바뀐 환경 공유</b><span class="d">AIDT 축소, 학습지원 SW 필수기준·학운위 심의. 선생님이 직접 툴을 고르는 시대입니다.</span><br><a class="go" href="#policy">② 볼 자료: 정책·기준 →</a></div></li>
-          <li><div><b>툴 선별 기준 맞추기</b><span class="d">기획자 제안: 교사 무료로 시작 / AI 기능 확인됨 / 한국어 / 학생이 쓰는 툴은 에듀집 등재. 더하거나 바꿀 기준이 있는지 이야기합니다.</span><br><a class="go" href="#tools">② 볼 자료: 에듀테크 툴 →</a></div></li>
-          <li><div><b>가목차 과제 안내</b><span class="d">무엇을 어떤 형식으로, 언제까지 짜 올지 정합니다.</span><br><a class="go" href="#work">③ 선생님 작업 →</a></div></li>
+          <li><div><b>3권 시장 현황 공유</b><span class="d">참고 도서에 많이 나온 툴과 거의 안 나온 툴, 경쟁서는 어떻게 묶었는지 봅니다.</span><br><a class="go" href="#books">참고 도서 보기 →</a></div></li>
+          <li><div><b>바뀐 환경 공유</b><span class="d">AIDT(AI 디지털교과서) 축소, 학습지원 SW 필수기준·학운위(학교운영위원회) 심의. 선생님이 직접 툴을 고르는 시대입니다.</span><br><a class="go" href="#policy">정책·기준 보기 →</a></div></li>
+          <li><div><b>툴 선별 기준 맞추기</b><span class="d">기획자 제안은 네 가지입니다.</span>
+            <ul class="crits"><li>교사 무료로 시작</li><li>AI 기능 확인됨</li><li>한국어 지원</li><li>학생이 쓰는 툴은 에듀집(교육부 학습지원 SW 목록) 등재</li></ul>
+            <span class="d">더하거나 바꿀 기준이 있는지 이야기합니다.</span><br><a class="go" href="#tools">에듀테크 툴 보기 →</a></div></li>
+          <li><div><b>가목차 과제 안내</b><span class="d">무엇을 어떤 형식으로, 언제까지 짜 올지 정합니다.</span><br><a class="go" href="#work">선생님 작업 보기 →</a></div></li>
         </ol>
       </section>
     </div>
@@ -252,7 +286,7 @@ body{accent-color:var(--accent);caret-color:var(--accent)}
         <ul>
           <li>AIDT 활용 학교 34.2% → 5.2% (2025-1학기 → 2026-1학기). 선생님이 직접 도구를 고르게 됐습니다.</li>
           <li>학습지원 SW 필수기준과 학운위 심의 절차가 생겼습니다(2026-1학기 적용). 이 절차를 실무로 다룬 책은 찾지 못했습니다.</li>
-          <li>법·정책을 안다는 교사 17%, 가장 큰 걱정은 개인정보 40.6% (KEDI, 2026-10)</li>
+          <li>법·정책을 안다는 교사 17%, 가장 큰 걱정은 개인정보 40.6% (KEDI 한국교육개발원, 2026-10)</li>
         </ul>
       </section>
       <section class="box">
@@ -278,15 +312,22 @@ body{accent-color:var(--accent);caret-color:var(--accent)}
       <option value="books">참고 도서 많은 순</option>
       <option value="rare">참고 도서 적은 순</option>
     </select>
-    <span class="cnt" id="tcnt"></span>
+    <span class="cnt" id="tcnt" role="status"></span>
   </div>
+  <fieldset class="crit" id="tcrit">
+    <legend class="lab">선별 기준으로 거르기</legend>
+    <label><input type="checkbox" value="free">교사 무료</label>
+    <label><input type="checkbox" value="ai">AI 기능 확인</label>
+    <label><input type="checkbox" value="zip">에듀집 등재</label>
+    <span class="note">한국어 지원은 조사 칸이 없어 거를 수 없습니다.</span>
+  </fieldset>
   <div id="tout"></div>
 </section>
 
 <section id="viewBooks" hidden>
   <div class="ph">
     <h2>참고 도서</h2>
-    <p>교사 대상 AI 도서 전수조사(309권) 가운데, 제목에 '에듀테크'가 있거나 목차에 조사한 툴이 두 개 이상 나오는 책입니다(바이브 코딩 책 제외). 왼쪽에서 책을 고르면 오른쪽에 목차가 나옵니다.</p>
+    <p>교사 대상 AI 도서 전수조사(309권) 가운데, 제목에 '에듀테크'가 있거나 목차에 조사한 툴이 두 개 이상 나오는 책입니다(바이브 코딩 책 제외). 목록에서 책을 고르면 목차가 나옵니다.</p>
     <p class="note">판매지수·목차는 예스24 기준(전수조사 2026-10-28).</p>
   </div>
   <div class="controls">
@@ -297,11 +338,11 @@ body{accent-color:var(--accent);caret-color:var(--accent)}
       <option value="date">최신순</option>
       <option value="tools">다룬 툴 많은 순</option>
     </select>
-    <span class="cnt" id="bcnt"></span>
+    <span class="cnt" id="bcnt" role="status"></span>
   </div>
   <div class="bk">
-    <div class="blist" id="blist" role="listbox" aria-label="도서 목록"></div>
-    <article class="box bview" id="bview" aria-live="polite"></article>
+    <div class="blist" id="blist" role="group" aria-label="도서 목록"></div>
+    <article class="box bview" id="bview" tabindex="-1"></article>
   </div>
 </section>
 
@@ -346,6 +387,7 @@ body{accent-color:var(--accent);caret-color:var(--accent)}
     <h2>선생님 작업 · 가목차 짜 오기</h2>
     <p>시장조사를 근거로 필요한 툴을 고르고, 그 툴로 가목차를 짭니다. 세 분이 같은 구글 시트에 함께 적습니다.</p>
   </div>
+  <dl class="tmeta tbar"><dt>마감</dt><dd class="due"></dd><dt>시트</dt><dd class="sheet"></dd></dl>
   <div class="gl">
     <div>
       <section class="box" style="display:grid;gap:14px">
@@ -360,7 +402,6 @@ body{accent-color:var(--accent);caret-color:var(--accent)}
           <li>협의 결과 "필요"인 툴로 파트와 꼭지를 짭니다. 한 줄에 꼭지 하나.</li>
           <li>칸: 파트 · 파트 제목 · 꼭지 · 꼭지 제목 · 쓰는 툴 · 꼭지 내용(한두 줄) · 참고한 도서·근거 · 제안 선생님</li>
         </ul>
-        <div id="sheetBtn"></div>
       </section>
     </div>
     <div>
@@ -413,6 +454,8 @@ body{accent-color:var(--accent);caret-color:var(--accent)}
   <div class="ph"><h2>작업 이력</h2><p>이 페이지를 고치고 더한 내역입니다. 최근 작업이 위에 있습니다.</p></div>
   <div class="log">
     <div class="box"><p class="d">2026년 11월 26일 · 첫 회의 준비</p><ul>
+      <li><b>과제 안내를 첫 화면으로</b>: 안건 화면 맨 위에 "선생님 과제"(툴 선별 → 가목차 작성 → 추가 제안, 마감, 시트 링크)를 두고, 선생님 작업 화면 위에도 마감·시트 줄을 넣었습니다. 마감과 시트 링크는 정해지면 채웁니다.</li>
+      <li><b>화면 다듬기</b>: 휴대폰에서 단계 탭이 한 줄에 다 보이고 STEP 1 메뉴는 줄바꿈됩니다. 에듀테크 툴 화면에 선별 기준(교사 무료 · AI 기능 확인 · 에듀집 등재)으로 거르는 칩을 넣었고, 검색 결과가 없으면 안내와 "모두 풀기" 버튼이 나옵니다. AIDT·학운위·에듀집·KEDI는 처음 나올 때 풀어 썼습니다. 화면을 오가도 보던 위치로 돌아옵니다.</li>
       <li><b>툴 링크 보완</b>: 링크가 없던 4종을 연결해 37종 모두 링크가 있습니다. 아이쌤GPT(issamgpt.com), 테크빌 마이클(mycl.io), 서울 SEN스쿨/채움아이(senedu.kr), 부산 BeAT(공개 주소가 없어 교육청 보도자료로 연결).</li>
       <li><b>사이트 주소 이전</b>: 이 페이지를 GitHub 사이트(gmountain01.github.io/edutech)로 옮겼습니다. 앞으로는 이 주소에서만 고치고 공유합니다.</li>
       <li><b>제목 표기</b>: 시리즈 이름을 "교사용 AI 시리즈"로 바꿨습니다.</li>
@@ -463,7 +506,7 @@ const ORDER=["업무 비서·기록","수업 준비·자료","수업 참여·퀴
 
 const ranked=T.map((t,i)=>({t,i})).sort((a,b)=>b.t.books.length-a.t.books.length);
 const max=ranked[0]?.t.books.length||1;
-$("topBars").innerHTML=ranked.slice(0,10).map(({t,i})=>`<div class="bar"><a href="#t-${i}">${esc(t.name)}</a><i style="width:${t.books.length/max*100}%"></i><b>${t.books.length}권</b></div>`).join("");
+$("topBars").innerHTML=ranked.slice(0,10).map(({t,i})=>`<div class="bar"><a href="#t-${i}" title="${esc(t.name)}">${esc(t.name)}</a><i style="width:${t.books.length/max*100}%"></i><b>${t.books.length}권</b></div>`).join("");
 $("rareTools").innerHTML=ranked.filter(x=>x.t.books.length<=1).map(({t,i})=>`<a href="#t-${i}">${esc(t.name)}</a>`).join("");
 
 /* 에듀테크 툴 */
@@ -481,10 +524,15 @@ function card({t,i}){
     ${unk.length?`<div class="unk">확인 필요: ${unk.join(", ")}</div>`:""}
     ${bk}</article>`;
 }
+/* 선별 기준 칩: 교사 무료(무료·포함, 유료 단서 없음) / AI 기능 확인 / 에듀집 등재(미확인 섞이면 제외) */
+const CRIT={free:t=>/무료|포함/.test(t.free)&&!/유료|Premium/.test(t.free),ai:t=>!isUnk(t.ai),zip:t=>/등재/.test(t.zip)&&!/미확인/.test(t.zip)};
+const emptyHtml=(msg,act)=>`<div class="empty"><p>${msg}</p><button type="button" class="lnk" data-reset="${act}">검색·거르기 모두 풀기</button></div>`;
 function renderTools(){
   const q=$("tq").value.trim().toLowerCase(),s=$("tsort").value;
-  let list=T.map((t,i)=>({t,i})).filter(({t})=>!q||[t.name,t.cat,t.ai,...t.alias].join(" ").toLowerCase().includes(q));
+  const on=[...document.querySelectorAll("#tcrit input:checked")].map(x=>CRIT[x.value]);
+  let list=T.map((t,i)=>({t,i})).filter(({t})=>(!q||[t.name,t.cat,t.ai,...t.alias].join(" ").toLowerCase().includes(q))&&on.every(f=>f(t)));
   $("tcnt").textContent=`${list.length} / ${T.length}종`;
+  if(!list.length){$("tout").innerHTML=emptyHtml("조건에 맞는 툴이 없습니다.","tools");return}
   if(s==="cat"){
     const cats=ORDER.filter(c=>list.some(x=>x.t.group===c));
     $("tout").innerHTML=cats.map(c=>{const g=list.filter(x=>x.t.group===c);return `<section class="grp"><h3>${esc(c)} <small>${g.length}종</small></h3><div class="cards">${g.map(card).join("")}</div></section>`}).join("");
@@ -493,7 +541,10 @@ function renderTools(){
     $("tout").innerHTML=`<div class="cards">${list.map(card).join("")}</div>`;
   }
 }
-["tq","tsort"].forEach(id=>$(id).addEventListener("input",renderTools));
+["tq","tsort","tcrit"].forEach(id=>$(id).addEventListener("input",renderTools));
+document.addEventListener("click",e=>{const r=e.target.closest("[data-reset]");if(!r)return;
+  if(r.dataset.reset==="tools"){$("tq").value="";document.querySelectorAll("#tcrit input").forEach(x=>x.checked=false);renderTools();$("tq").focus()}
+  else{$("bq").value="";$("btool").value="";renderBooks();$("bq").focus()}});
 
 /* 참고 도서: 목차는 build_site.py 가 [단계, 글] 로 정리해 둔다(글은 원문 그대로). 단계 1 굵게+구분선, 2 굵게, 3·4 들여쓰기 */
 const tocText=b=>b.toc.map(x=>x[1]).join("\n");
@@ -504,11 +555,11 @@ function tocHtml(toc,q){
 let cur=null;
 function showBook(id){
   const b=byBook[id];if(!b)return;cur=id;
-  document.querySelectorAll(".brow").forEach(r=>r.setAttribute("aria-selected",+r.dataset.id===id));
+  document.querySelectorAll(".brow").forEach(r=>r.setAttribute("aria-pressed",+r.dataset.id===id));
   const q=$("bq").value.trim();
   // 책마다 같은 칸을 같은 순서로: 값이 없으면 "–"
   const v=x=>x?esc(x):"–";
-  $("bview").innerHTML=`<header><h3>${esc(b.title)}</h3><p class="sub">${v(b.sub)}</p></header>
+  $("bview").innerHTML=`<header><a class="back" href="#blist">↑ 책 목록으로</a><h3>${esc(b.title)}</h3><p class="sub">${v(b.sub)}</p></header>
     <dl class="binfo">
       <dt>출판사</dt><dd>${v(b.pub)}</dd><dt>출간</dt><dd>${v(b.date)}</dd>
       <dt>쪽수</dt><dd>${b.pages?b.pages+"쪽":"–"}</dd><dt>판매지수</dt><dd>${b.sales?num(b.sales):"–"}</dd>
@@ -527,24 +578,29 @@ function renderBooks(){
   if(s==="date")list.sort((a,b)=>b.date.localeCompare(a.date));
   if(s==="tools")list.sort((a,b)=>b.tools.length-a.tools.length);
   $("bcnt").textContent=`${list.length} / ${B.length}권`;
-  $("blist").innerHTML=list.map(b=>`<button type="button" class="brow" role="option" data-id="${b.id}" aria-selected="false">
+  $("blist").innerHTML=list.map(b=>`<button type="button" class="brow" data-id="${b.id}" aria-pressed="false">
     <span class="t">${esc(b.title)}</span><span class="m">${esc(b.pub)} · ${esc(b.date.slice(0,4))}</span>
-    <span class="s">${num(b.sales)}<small>판매지수</small></span></button>`).join("")||`<p class="note" style="padding:16px">맞는 책이 없습니다.</p>`;
-  if(list.length)showBook(list.some(b=>b.id===cur)?cur:list[0].id);else $("bview").innerHTML="";
+    <span class="s">${num(b.sales)}<small>판매지수</small></span></button>`).join("")||emptyHtml("조건에 맞는 책이 없습니다.","books");
+  if(list.length)showBook(list.some(b=>b.id===cur)?cur:list[0].id);else $("bview").innerHTML=`<p class="note">검색어나 툴 조건을 바꾸면 여기에 목차가 나옵니다.</p>`;
 }
-$("blist").addEventListener("click",e=>{const r=e.target.closest(".brow");if(!r)return;showBook(+r.dataset.id);if(matchMedia("(max-width:900px)").matches)$("bview").scrollIntoView({block:"start"})});
+$("blist").addEventListener("click",e=>{const r=e.target.closest(".brow");if(!r)return;showBook(+r.dataset.id);if(matchMedia("(max-width:900px)").matches){$("bview").scrollIntoView({block:"start"});$("bview").focus({preventScroll:true})}});
+$("bview").addEventListener("click",e=>{if(!e.target.closest(".back"))return;e.preventDefault();const s=document.querySelector(`.brow[data-id="${cur}"]`)||$("blist");$("blist").scrollIntoView({block:"start"});s.focus({preventScroll:true})});
 ["bq","btool","bsort"].forEach(id=>$(id).addEventListener("input",renderBooks));
 
-/* ③ 선생님 작업: 입력은 구글 시트. 시트 주소가 정해지면 SHEET_URL 에 넣는다 */
-const SHEET_URL="";
-$("sheetBtn").innerHTML=SHEET_URL?`<a class="btn" style="display:inline-block;text-decoration:none" href="${esc(SHEET_URL)}" target="_blank" rel="noopener">시트로 이동 ↗</a>`:`<span class="msg">시트 링크는 준비 중입니다.</span>`;
+/* 선생님 과제: 입력은 구글 시트. 정해지면 SHEET_URL(주소)·DUE(예: "12월 10일(수)")를 넣는다 */
+const SHEET_URL="",DUE="";
+document.querySelectorAll(".tmeta .sheet").forEach(e=>e.innerHTML=SHEET_URL?`<a class="btn" href="${esc(SHEET_URL)}" target="_blank" rel="noopener">시트 열기 ↗</a>`:`<span class="msg">링크 준비 중</span>`);
+document.querySelectorAll(".tmeta .due").forEach(e=>e.innerHTML=DUE?`<b>${esc(DUE)}</b>`:`<span class="msg">오늘 회의에서 정합니다</span>`);
 $("nTools2").textContent=T.length;
 
 /* 이동: 단계 탭 + STEP 1 안의 ①②③, 바로가기 #t-번호 #b-번호 */
 const VIEWS={agenda:"viewAgenda",tools:"viewTools",books:"viewBooks",policy:"viewPolicy",work:"viewWork",step2:"viewStep2",log:"viewLog"};
 const STEP={agenda:"1",tools:"1",books:"1",policy:"1",work:"1",step2:"2",log:"log"};
+/* 화면을 오가도 보던 위치로 돌아오게 화면별 스크롤 위치를 기억 */
+const pos={};let curView=null;
 function route(){
   const h=location.hash.slice(1);let v=VIEWS[h]?h:"agenda",target=null;
+  if(curView)pos[curView]=scrollY;
   if(/^t-\d+$/.test(h)){v="tools";$("tq").value="";renderTools();target=$(h)}
   if(/^b-\d+$/.test(h)){v="books";$("bq").value="";$("btool").value="";renderBooks();showBook(+h.slice(2));target=document.querySelector(`.brow[data-id="${h.slice(2)}"]`)}
   for(const k in VIEWS)$(VIEWS[k]).hidden=k!==v;
@@ -552,13 +608,8 @@ function route(){
   document.querySelectorAll("a.tab").forEach(a=>a.dataset.step===STEP[v]?a.setAttribute("aria-current","page"):a.removeAttribute("aria-current"));
   document.querySelectorAll("#s1nav a").forEach(a=>a.getAttribute("href")==="#"+v?a.setAttribute("aria-current","page"):a.removeAttribute("aria-current"));
   document.querySelectorAll(".card.hl").forEach(e=>e.classList.remove("hl"));
-  window.scrollTo({top:0,behavior:"instant"});
-  /* 휴대폰에서 한 줄 메뉴가 옆으로 밀려 있어도 지금 보는 항목이 보이게 */
-  for(const [box,cur] of [[$("s1nav"),"#s1nav a[aria-current]"],[document.querySelector(".tabs"),"a.tab[aria-current]"]]){
-    const c=document.querySelector(cur);if(!c||box.scrollWidth<=box.clientWidth)continue;
-    const d=c.getBoundingClientRect(),b=box.getBoundingClientRect();
-    if(d.left<b.left||d.right>b.right)box.scrollLeft+=d.left-b.left-16;
-  }
+  window.scrollTo({top:target||v===curView?0:pos[v]||0,behavior:"instant"});
+  curView=v;
   if(target&&v==="tools"){target.classList.add("hl");target.scrollIntoView({block:"start"})}
   if(target&&v==="books")target.scrollIntoView({block:"nearest"});
 }
