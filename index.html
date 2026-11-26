@@ -272,6 +272,11 @@ td a:hover{text-decoration:underline}
 .upd a:hover{text-decoration:underline}
 .card .updb{font-weight:600;text-decoration:none;color:var(--accent-text)}
 #upd{scroll-margin-top:16px}
+/* 정책: 필수·선택기준 나란히 */
+.cols2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:12px;margin-top:20px}
+.cols2>div{background:var(--quiet);border-radius:12px;padding:16px 18px}
+.cols2 h4{margin:0 0 8px!important}
+.cols2 ol{gap:4px!important}
 /* 빈 결과 */
 .empty{background:var(--surface);border-radius:16px;padding:32px 20px;text-align:center;color:var(--sub);display:grid;gap:12px;justify-items:center}
 .empty p{margin:0}
@@ -493,10 +498,12 @@ td a:hover{text-decoration:underline}
       <p>교육부가 2025년 12월 30일에 발표했고 2026년 1학기부터 적용합니다. 학생 개인정보를 처리하거나 성취기준과 연계된 SW가 대상이며, 교사 혼자 쓰는 수업 준비·행정 SW는 해당하지 않습니다.</p>
       <div class="flow"><span>교원 의견 수렴</span><i>→</i><span>기준 충족 확인</span><i>→</i><span>학교운영위원회 심의</span><i>→</i><span>학교장 확정</span></div>
       <p class="note" style="margin-top:10px">검증된 SW·도구형은 목록으로 묶어 일괄 심의할 수 있습니다.</p>
-      <h4 style="margin-top:22px">필수기준 5개</h4>
-      <ol><li>개인정보 최소 수집</li><li>안전조치</li><li>열람·정정·삭제 절차</li><li>만 14세 미만 법정대리인 동의</li><li>보호책임자·제3자 제공 공개</li></ol>
-      <h4>선택기준 5개</h4>
-      <ol><li>교육목표 적합성</li><li>콘텐츠 품질·안전</li><li>사용 환경</li><li>접근성</li><li>서비스 지원</li></ol>
+      <div class="cols2">
+        <div><h4>필수기준 5개</h4>
+        <ol><li>개인정보 최소 수집</li><li>안전조치</li><li>열람·정정·삭제 절차</li><li>만 14세 미만 법정대리인 동의</li><li>보호책임자·제3자 제공 공개</li></ol></div>
+        <div><h4>선택기준 5개</h4>
+        <ol><li>교육목표 적합성</li><li>콘텐츠 품질·안전</li><li>사용 환경</li><li>접근성</li><li>서비스 지원</li></ol></div>
+      </div>
     </section>
     <section class="box">
       <h3>관련 자료</h3>
