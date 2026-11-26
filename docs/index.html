@@ -686,6 +686,7 @@ function route(){
   /* 화면 안의 상자로 가는 링크(#types 등): 그 상자가 있는 화면을 열고 상자로 이동 */
   if(!VIEWS[h]&&!target&&h){const el=document.getElementById(h),sec=el&&el.closest("section[id^=view]");if(sec){v=Object.keys(VIEWS).find(k=>VIEWS[k]===sec.id);target=el;if(el.tagName==="DETAILS")el.open=true}}
   for(const k in VIEWS)$(VIEWS[k]).hidden=k!==v;
+  if(v!=="books")$("types").open=false; /* 짜임 유형은 기본 접힘: 다른 화면에 다녀오면 다시 접는다 */
   $("s1nav").hidden=STEP[v]!=="1";
   document.querySelectorAll("a.tab").forEach(a=>a.dataset.step===STEP[v]?a.setAttribute("aria-current","page"):a.removeAttribute("aria-current"));
   document.querySelectorAll("#s1nav a").forEach(a=>a.getAttribute("href")==="#"+v?a.setAttribute("aria-current","page"):a.removeAttribute("aria-current"));
