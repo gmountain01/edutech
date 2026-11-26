@@ -55,7 +55,7 @@ TOOLS = [
 
 SKIP_CAT = {"바이브코딩"}
 
-# 공식 링크 (2026-11-26 확인). 아이쌤GPT·마이클·SEN스쿨·채움아이·BeAT는 공개 접속 주소를 찾지 못함
+# 공식 링크 (2026-11-26 확인). SEN스쿨/채움아이는 SEN스쿨 주소(채움아이 단독 주소 없음), BeAT는 공개 주소가 없어 부산교육청 보도자료
 URLS = {
  "구글 클래스룸": "https://edu.google.com/intl/ALL_kr/products/classroom/",
  "Gemini for Education": "https://edu.google.com/ai/gemini-for-education/",
@@ -90,6 +90,10 @@ URLS = {
  "워드월": "https://wordwall.net/",
  "SchoolAI": "https://www.schoolai.com",
  "클래스카드": "https://www.classcard.net",
+ "아이쌤GPT": "https://issamgpt.com/",
+ "테크빌 마이클(MyCl)": "https://mycl.io/",
+ "서울 SEN스쿨 / 채움아이": "https://senedu.kr/",
+ "부산 AI 튜터 BeAT": "https://www.pen.go.kr/main/na/ntt/selectNttInfo.do?mi=30397&nttSn=1150888",
 }
 
 # 화면에서 묶는 큰 분류 (TOOLS 의 세부 분류 → 묶음)
