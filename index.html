@@ -126,7 +126,8 @@ td a:hover{text-decoration:underline}
 @media (max-width:900px){.blist{position:static;max-height:420px}}
 .brow{display:grid;grid-template-columns:1fr auto;gap:2px 12px;width:100%;text-align:left;font:inherit;color:inherit;background:none;border:0;border-bottom:1px solid var(--line);padding:12px 16px;cursor:pointer}
 .brow:hover{background:var(--accent-soft)}
-.brow[aria-selected="true"]{background:var(--accent-soft);box-shadow:inset 4px 0 0 var(--accent)}
+.brow[aria-selected="true"]{background:var(--accent-soft)}
+.brow[aria-selected="true"] .t{color:var(--accent)}
 .brow .t{font-weight:600;font-size:15px;line-height:1.45}
 .brow .m{grid-column:1;font-size:13px;color:var(--muted)}
 .brow .s{grid-row:1/3;grid-column:2;font-size:13.5px;font-variant-numeric:tabular-nums;color:var(--sub);text-align:right;line-height:1.3}
@@ -168,7 +169,7 @@ td a:hover{text-decoration:underline}
 @media (max-width:700px){.stepnav .sep{display:none}}
 .badge{display:inline-block;font-size:12px;font-weight:700;padding:1px 8px;border-radius:999px;margin-left:6px;vertical-align:2px;background:var(--chalk);color:var(--board)}
 a.tab .badge{background:var(--chalk);color:var(--board)}
-.badge.off{background:transparent;border:1px solid currentColor;color:inherit;opacity:.8}
+.badge.off,a.tab .badge.off{background:transparent;border:1px solid currentColor;color:inherit}
 .goal{background:var(--chalk-soft);border:1px solid var(--chalk);border-radius:14px;padding:16px 22px}
 .goal b{display:block;font-size:17px;margin-bottom:2px}
 .agenda{counter-reset:a;list-style:none;padding:0!important;gap:16px!important}
@@ -180,6 +181,23 @@ a.tab .badge{background:var(--chalk);color:var(--board)}
 .agenda .go:hover{text-decoration:underline}
 /* 선생님 작업 */
 .msg{font-size:14.5px;padding:10px 14px;border-radius:10px;background:var(--warn-soft);color:var(--warn)}
+/* 브라우저 기본 표면도 같은 색으로 */
+html{scroll-behavior:smooth;scrollbar-color:var(--line) transparent}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+::selection{background:var(--chalk-soft);color:var(--fg)}
+body{accent-color:var(--accent);caret-color:var(--accent)}
+/* 휴대폰: 탭·STEP 메뉴를 한 줄로(옆으로 밀어 보기), 누르기 쉬운 높이 */
+@media (max-width:700px){
+  .tabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-inline:-16px;padding-inline:16px}
+  .tabs::-webkit-scrollbar{display:none}
+  a.tab{white-space:nowrap;padding:11px 14px}
+  .stepnav{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;gap:6px;padding:10px 12px}
+  .stepnav::-webkit-scrollbar{display:none}
+  .stepnav .grp{flex-wrap:nowrap}
+  .stepnav a{white-space:nowrap;min-height:40px;display:inline-flex;align-items:center}
+  .stepnav .lab{white-space:nowrap}
+  .controls select{flex:1 1 140px}
+}
 .btn{appearance:none;font:inherit;font-weight:700;font-size:16px;padding:10px 22px;border-radius:10px;border:0;background:var(--accent);color:var(--surface);cursor:pointer}
 .locked{border-style:dashed;color:var(--sub)}
 </style>
@@ -534,7 +552,13 @@ function route(){
   document.querySelectorAll("a.tab").forEach(a=>a.dataset.step===STEP[v]?a.setAttribute("aria-current","page"):a.removeAttribute("aria-current"));
   document.querySelectorAll("#s1nav a").forEach(a=>a.getAttribute("href")==="#"+v?a.setAttribute("aria-current","page"):a.removeAttribute("aria-current"));
   document.querySelectorAll(".card.hl").forEach(e=>e.classList.remove("hl"));
-  window.scrollTo(0,0);
+  window.scrollTo({top:0,behavior:"instant"});
+  /* 휴대폰에서 한 줄 메뉴가 옆으로 밀려 있어도 지금 보는 항목이 보이게 */
+  for(const [box,cur] of [[$("s1nav"),"#s1nav a[aria-current]"],[document.querySelector(".tabs"),"a.tab[aria-current]"]]){
+    const c=document.querySelector(cur);if(!c||box.scrollWidth<=box.clientWidth)continue;
+    const d=c.getBoundingClientRect(),b=box.getBoundingClientRect();
+    if(d.left<b.left||d.right>b.right)box.scrollLeft+=d.left-b.left-16;
+  }
   if(target&&v==="tools"){target.classList.add("hl");target.scrollIntoView({block:"start"})}
   if(target&&v==="books")target.scrollIntoView({block:"nearest"});
 }
