@@ -285,7 +285,12 @@ td a:hover{text-decoration:underline}
 /* 정책·이력 */
 .narrow{display:grid;gap:16px}
 .log{display:grid;gap:12px}
-.log .d{font-weight:700;font-size:19px;line-height:28px;margin:0 0 10px}
+.log .d{font-weight:700;font-size:19px;line-height:28px;cursor:pointer;list-style:none;display:flex;align-items:center;gap:10px}
+.log .d::-webkit-details-marker{display:none}
+.log .d::after{content:"펼치기";margin-left:auto;font-size:14px;font-weight:600;color:var(--accent-text)}
+.log details[open]>.d{margin-bottom:12px}
+.log details[open]>.d::after{content:"접기"}
+.log .d .cnt{font-weight:500}
 
 /* 휴대폰: 제목 한 단계 작게, 단계 탭은 "STEP 1·STEP 2·작업 이력"만, 메뉴는 줄바꿈 */
 @media (max-width:700px){
@@ -597,7 +602,7 @@ td a:hover{text-decoration:underline}
 <section id="viewLog" hidden>
   <div class="ph"><h2>작업 이력</h2><p>이 페이지를 고치거나 보탠 내역입니다. 최근 작업이 맨 위에 있습니다.</p></div>
   <div class="log">
-    <div class="box"><p class="d">2026년 11월 26일 · 첫 회의 준비</p><ul>
+    <details class="box"><summary class="d">2026년 11월 26일 · 첫 회의 준비 <span class="cnt">19건</span></summary><ul>
       <li><b>툴 정보 다시 확인</b>: 툴 37종의 요금·약관·도움말 페이지를 웹에서 다시 확인해 26종 42곳을 고쳤습니다(대부분 "미확인"이던 교사 무료·학생 사용 칸). 바뀐 카드에는 "11/26 업데이트" 표시가 붙고, 에듀테크 툴 화면 맨 아래 "정보 업데이트 내역"에서 출처 링크를 볼 수 있습니다. 에듀집 등재 여부는 이번에 확인하지 못했습니다.</li>
       <li><b>판매 순위 표시</b>: "참고 도서는 어떻게 묶었나" 위쪽에 판매지수 상위 10권과 그 짜임을 넣고, 대표 책 옆에도 판매 순위를 붙였습니다.</li>
       <li><b>참고 도서 짜임 유형</b>: 참고 도서 화면 위쪽에 "참고 도서는 어떻게 묶었나"를 펼쳐 볼 수 있게 넣었습니다. 목차가 있는 86권을 큰 제목 두 단계까지 보고 11가지로 나눴고, 유형마다 권수와 대표 책(누르면 목차로 이동)을 보여 줍니다.</li>
@@ -632,10 +637,10 @@ td a:hover{text-decoration:underline}
       <li><b>툴과 참고 도서 연결</b>: 예스24 목차에 툴 이름이 나온 책을 툴마다 연결했습니다. 본문에서만 다룬 경우는 세지 못했습니다.</li>
       <li><b>참고 도서 89권</b>: 교사 대상 AI 도서 전수조사(309권) 가운데 제목에 '에듀테크'가 있거나 목차에 조사한 툴이 두 개 이상 나오는 책입니다(바이브 코딩 책 제외). 신간 5권(이지스 「AI 에듀테크 활용 백과」, 「열두 달 에듀테크」, 「교사들의 에듀테크 활용 바이블」, 「수학 수업이 달라지는 AI·에듀테크 활용법」, 「Google로 수업을 바꾸는 교사들의 시크릿」)은 예스24 목차를 새로 모았습니다. 3권은 예스24에 목차가 없습니다.</li>
       <li><b>페이지 만들기</b>: 1·2권 진행 현황 페이지와 같은 디자인으로 3권(AI 에듀테크) 페이지를 만들었습니다.</li>
-    </ul></div>
-    <div class="box"><p class="d">2026년 11월 25일 · 시장조사</p><ul>
+    </ul></details>
+    <details class="box"><summary class="d">2026년 11월 25일 · 시장조사 <span class="cnt">1건</span></summary><ul>
       <li>3·4권 시장조사(에듀테크 / 이미지·동영상): 경쟁서, 툴 목록(무료 범위 · 연령 · 에듀집 등재), 정책 근거(학습지원 SW 필수기준 · 학운위 심의 · AIDT 활용 현황)</li>
-    </ul></div>
+    </ul></details>
   </div>
 </section>
 </main>
