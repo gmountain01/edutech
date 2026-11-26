@@ -152,6 +152,8 @@ table{border-collapse:collapse;width:100%;font-size:15px;line-height:22.5px}
 th,td{border-bottom:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}
 th{color:var(--muted);font-weight:600;font-size:13px;white-space:nowrap}
 td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+.tbl td:first-child{white-space:nowrap;font-weight:600}
+.tbl td:last-child{min-width:9em}
 td a{text-decoration:none;font-weight:600}
 td a:hover{text-decoration:underline}
 .flow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:15px;margin-top:8px}
@@ -278,6 +280,17 @@ td a:hover{text-decoration:underline}
 .cols2>div{background:var(--quiet);border-radius:12px;padding:16px 18px}
 .cols2 h4{margin:0 0 8px!important}
 .cols2 ol{gap:4px!important}
+.cols2 h4 small{font-size:13px;font-weight:500;color:var(--muted);margin-left:6px}
+.src{margin:12px 0 0!important;font-size:13px;line-height:20px;color:var(--muted)}
+.src a,.tbl td a{text-decoration:none;font-weight:600}
+.src a:hover,.tbl td a:hover{text-decoration:underline}
+.news{list-style:none;padding:0!important;gap:0!important}
+.news>li{display:grid;grid-template-columns:6.5em 1fr;gap:4px 16px;padding:14px 0;border-top:1px solid var(--line)}
+.news>li:first-child{border-top:0;padding-top:4px}
+.news .dt{font-size:14px;font-weight:600;color:var(--accent-text);font-variant-numeric:tabular-nums}
+.news b{display:block;font-size:16px}
+.news p{margin:4px 0 0!important;font-size:14px;line-height:21px;color:var(--sub)}
+@media (max-width:520px){.news>li{grid-template-columns:1fr}}
 /* 빈 결과 */
 .empty{background:var(--surface);border-radius:16px;padding:32px 20px;text-align:center;color:var(--sub);display:grid;gap:12px;justify-items:center}
 .empty p{margin:0}
@@ -376,7 +389,7 @@ td a:hover{text-decoration:underline}
         <ul>
           <li>AIDT를 쓰는 학교가 34.2%에서 5.2%로 줄었습니다(2025년 1학기 → 2026년 1학기). 이제 선생님이 직접 도구를 고르게 되었습니다.</li>
           <li>학습지원 SW 필수기준과 학운위 심의 절차가 생겼습니다(2026년 1학기부터 적용). 이 절차를 실무 차원에서 다룬 책은 찾지 못했습니다.</li>
-          <li>관련 법·정책을 안다고 답한 교사는 17%였고, 가장 큰 걱정으로는 개인정보(40.6%)를 꼽았습니다(KEDI 한국교육개발원, 2026년 10월).</li>
+          <li>관련 법·정책을 안다고 답한 교사는 약 17%였고, 가장 큰 어려움으로는 학생 개인정보·학습데이터 처리(40.6%)를 꼽았습니다(KEDI 한국교육개발원, 2026년 10월).</li>
         </ul>
       </section>
       <section class="box">
@@ -496,34 +509,47 @@ td a:hover{text-decoration:underline}
 <section id="viewPolicy" hidden>
   <div class="ph">
     <h2>정책·기준</h2>
-    <p>책에서 "툴 고르는 법"을 다룰 때 근거로 삼을 자료입니다. 출처에 적힌 날짜 기준이라 원고를 쓰기 전에 다시 확인합니다.</p>
+    <p>책에서 "툴 고르는 법"을 다룰 때 근거로 삼을 자료입니다. 2026년 11월 26일에 원문과 보도를 다시 확인했고, 원고를 쓰기 전에 한 번 더 확인합니다.</p>
   </div>
   <div class="narrow">
     <section class="box">
       <h3>학습지원 소프트웨어 선정 절차</h3>
-      <p>교육부가 2025년 12월 30일에 발표했고 2026년 1학기부터 적용합니다. 학생 개인정보를 처리하거나 성취기준과 연계된 SW가 대상이며, 교사 혼자 쓰는 수업 준비·행정 SW는 해당하지 않습니다.</p>
+      <p>교육부가 2025년 12월 30일 「학습지원 소프트웨어 선정기준 및 가이드라인」을 안내했습니다. 근거는 초·중등교육법 제29조의2이고 2026년 3월 1일부터 시행되므로, 1학기에 쓸 SW는 그 전에 학운위 심의를 마쳐야 합니다.</p>
+      <p>대상은 학생 개인정보를 처리하거나, 교과 성취기준과 관련된 학습콘텐츠를 담은 SW입니다. 교사가 수업 준비·행정업무에 학생 개인정보 없이 쓰는 SW는 해당하지 않습니다. 방과후 수업용과 국가·국제 수준의 일시적 평가용 SW도 제외됩니다.</p>
       <div class="flow"><span>교원 의견 수렴</span><i>→</i><span>기준 충족 확인</span><i>→</i><span>학교운영위원회 심의</span><i>→</i><span>학교장 확정</span></div>
-      <p class="note" style="margin-top:10px">검증된 SW·도구형은 목록으로 묶어 일괄 심의할 수 있습니다.</p>
+      <p class="note" style="margin-top:10px">자주 쓰고 안전성·교육적 효과가 높은 SW와, 학습콘텐츠 없이 개인정보만 처리하는 도구형 SW는 목록으로 묶어 한꺼번에 심의할 수 있습니다(학교장 판단). 학기 중에 새로 쓰는 SW는 쓰기 전에 따로 심의합니다.</p>
       <div class="cols2">
-        <div><h4>필수기준 5개</h4>
-        <ol><li>개인정보 최소 수집</li><li>안전조치</li><li>열람·정정·삭제 절차</li><li>만 14세 미만 법정대리인 동의</li><li>보호책임자·제3자 제공 공개</li></ol></div>
-        <div><h4>선택기준 5개</h4>
-        <ol><li>교육목표 적합성</li><li>콘텐츠 품질·안전</li><li>사용 환경</li><li>접근성</li><li>서비스 지원</li></ol></div>
+        <div><h4>필수기준 5개 <small>하나라도 빠지면 선정 불가</small></h4>
+        <ol><li>개인정보 최소 처리</li><li>안전조치</li><li>열람·정정·삭제·처리정지 절차</li><li>만 14세 미만 아동 개인정보 보호(법정대리인 동의)</li><li>보호책임자·제3자 제공·위탁 정보 공개</li></ol></div>
+        <div><h4>선택기준 5개 <small>학교가 골라서 적용</small></h4>
+        <ol><li>교육목표·학생 특성 적합성</li><li>콘텐츠 품질·안전성</li><li>사용 환경 적합성</li><li>접근성·사용성</li><li>서비스 운영·지원 체계</li></ol></div>
       </div>
+      <p class="src">출처: <a href="https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=294&amp;boardSeq=105007&amp;lev=0&amp;m=020" target="_blank" rel="noopener">교육부 보도자료(2025-12-30) ↗</a> · <a href="https://www.etoday.co.kr/news/view/2540434" target="_blank" rel="noopener">이투데이: 제외 대상 ↗</a> · <a href="https://www.edupress.kr/news/articleView.html?idxno=21593" target="_blank" rel="noopener">에듀프레스: 일괄 심의 일문일답 ↗</a></p>
+    </section>
+    <section class="box">
+      <h3>2026년에 새로 나온 자료</h3>
+      <ul class="news">
+        <li><span class="dt">2026-11-25</span><div><b>교육부 「학교 생성형 AI 활용 가이드」 12월 배포 예정</b><p>초등학생용(웹툰)·중고생용·교사용으로 나뉩니다. AI 사용 사실을 밝히고 결과를 스스로 검증하도록 하며, 밝히지 않고 AI 결과물을 수행평가에 내면 부정행위로 처리합니다.</p><p class="src"><a href="https://www.seoul.co.kr/news/society/education-news/2026/11/25/20261125500228" target="_blank" rel="noopener">서울신문 ↗</a></p></div></li>
+        <li><span class="dt">2026-09-06</span><div><b>교사 62.9%가 수업·평가에 생성형 AI 활용</b><p>한국교육과정평가원이 교사 1,659명을 조사했습니다(고 70.5%, 중 65.3%, 초 56.8%). 주제·평가 아이디어를 얻는 데 효과적이라는 답은 76.0%였지만, 평가 결과에 따른 맞춤 학습 지원은 37.7%였습니다.</p><p class="src"><a href="https://www.fnnews.com/news/202609061117518750" target="_blank" rel="noopener">파이낸셜뉴스(KICE 조사) ↗</a></p></div></li>
+        <li><span class="dt">2026-05-19</span><div><b>개인정보위 「생성형 AI 서비스 이용자를 위한 개인정보 보호 가이드」</b><p>입력 내용이 AI 학습에 쓰이는지, 업무 자료를 넣을 때 주의할 점 등 8개 질문에 답하고, 학습 활용 거부(옵트아웃)와 대화 기록 설정 방법을 안내합니다.</p><p class="src"><a href="https://www.pipc.go.kr/np/cop/bbs/selectBoardArticle.do?bbsId=BS074&amp;mCode=C020010000&amp;nttId=12084" target="_blank" rel="noopener">개인정보보호위원회 ↗</a></p></div></li>
+        <li><span class="dt">2026-03-27</span><div><b>KERIS 조사: 기기는 충분, 예산·승인 절차는 부족</b><p>학생 1인당 디지털기기는 0.85대, 교사 1인당 2.3대입니다. AI 교육 예산이 충분하다는 학교는 14.0%였고, 교사들은 AI 툴 승인 절차가 복잡하다고 답했습니다.</p><p class="src"><a href="https://www.etnews.com/20260327000181" target="_blank" rel="noopener">전자신문(KERIS 조사) ↗</a></p></div></li>
+        <li><span class="dt">2026-03-16</span><div><b>AI 교육 담당교원 연수 3단계 신설</b><p>교육부가 기본·심화·전문 3단계 연수를 2026년 5월부터 운영합니다. 올해 3,000명, 2029년까지 1만 명 이수가 목표입니다.</p><p class="src"><a href="https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=294&amp;boardSeq=105627&amp;lev=0&amp;m=020402&amp;opType=N&amp;s=moe" target="_blank" rel="noopener">교육부 ↗</a></p></div></li>
+        <li><span class="dt">2026-03-10</span><div><b>에듀집 선정기준 등록 1,209개</b><p>국내 민간 688, 해외 민간 134, 공공 119, AI 디지털 교육자료 196개입니다. 구글 클래스룸, MS 365, 캔바, 카훗, 패들렛 등이 등록했고 약 200건은 보완 요청을 받았습니다.</p><p class="src"><a href="https://www.etnews.com/20260310000171" target="_blank" rel="noopener">전자신문 ↗</a></p></div></li>
+      </ul>
     </section>
     <section class="box">
       <h3>관련 자료</h3>
       <div class="tbl"><table>
         <thead><tr><th>항목</th><th>내용</th><th>출처·날짜</th></tr></thead>
         <tbody>
-          <tr><td>AIDT 교육자료 전환</td><td>초·중등교육법 개정, 교과서 → 교육자료</td><td class="n">2025-08-14</td></tr>
-          <tr><td>AIDT 활용 학교</td><td>4,095곳(34.2%) → 1,481곳(12.5%) → 622곳(5.2%). 622곳 중 311곳이 대구</td><td>경향신문 2026-09-21</td></tr>
-          <tr><td>에듀집 등록</td><td>1,209개(2026-03-10) → 확인완료 1,812종(2026-09-15, 제3자 집계)</td><td>전자신문 / GitHub</td></tr>
-          <tr><td>연령 기준</td><td>개인정보보호법상 만 14세 미만은 법정대리인 동의가 필요합니다. 경기도교육청은 약관의 연령 기준을 지키고, 기준에 못 미치면 교사가 시연하도록 안내합니다. 교육부의 별도 연령 지침은 확인하지 못했습니다.</td><td>경기도교육청 2025-02-24</td></tr>
-          <tr><td>수행평가 AI 관리</td><td>교육부·17개 시도 「수행평가 시 AI 활용 관리 방안」 2026학년도 적용</td><td>교육부 2025-12-23</td></tr>
-          <tr><td>교육청 가이드라인</td><td>서울교육청 「AI·에듀테크 공교육 도입 및 활용 가이드라인」</td><td class="n">2026-02-26</td></tr>
-          <tr><td>교사 AI 사용</td><td>주 1회 이상 사용 54.6%, ChatGPT 57.1%·Gemini 56.3%, 법·정책을 안다 17%, 가장 큰 걱정은 개인정보 40.6%</td><td>KEDI / 뉴시스 2026-10-19</td></tr>
-          <tr><td>교사 에듀테크 사용</td><td>고교 교사 63.4%가 써 본 적 있음. 수업 지원 도구로는 패들렛·띵커벨을 가장 많이 씀</td><td>KICE 2025-01 / 러닝스파크 2025-03</td></tr>
+          <tr><td>AIDT 교육자료 전환</td><td>초·중등교육법 개정(법률 제21013호)으로 AI 디지털교과서가 교과서에서 교육자료로 바뀌었습니다. 2025년 8월 4일 국회 통과, 8월 14일 공포·시행. 학습지원 SW 선정 절차 조항은 2026년 3월 1일 시행</td><td><a href="https://star.moe.go.kr/web/contents/m20101.do?schM=view&amp;id=92086" target="_blank" rel="noopener">교육법령정보 ↗</a><br>2025-08-14</td></tr>
+          <tr><td>AIDT 활용 학교</td><td>4,095곳(34.2%, 2025년 1학기) → 1,481곳(12.5%, 2학기) → 622곳(5.2%, 2026년 1학기). 622곳 중 311곳이 대구. 2026년 예산은 87억 원이고 17개 시도 중 13곳은 따로 편성하지 않음</td><td><a href="https://www.khan.co.kr/article/202609211632001/" target="_blank" rel="noopener">경향신문 ↗</a><br>2026-09-21</td></tr>
+          <tr><td>에듀집 등록</td><td>등록 1,209개(2026-03-10, 확인 중·보완 요청 포함) → 확인 완료 1,812종(2026-09-14, 제3자 집계)</td><td><a href="https://www.etnews.com/20260310000171" target="_blank" rel="noopener">전자신문 ↗</a> · <a href="https://github.com/moonsul0422-ai/edtech-toolbox" target="_blank" rel="noopener">GitHub ↗</a></td></tr>
+          <tr><td>연령 기준</td><td>개인정보보호법 제22조의2에 따라 만 14세 미만은 법정대리인 동의가 필요합니다. 경기도교육청은 서비스 제공사의 연령 제한을 지키고, 만 13세 미만은 보호자 동의와 교사 지도가 반드시 필요하다고 안내합니다. 교육부의 별도 생성형 AI 연령 지침은 찾지 못했습니다.</td><td><a href="https://www.goe.go.kr/resource/old/BBSMSTR_000000000126/BBS_202502240135524570.pdf" target="_blank" rel="noopener">경기도교육청 교사용 가이드라인 ↗</a><br>2025-02-24</td></tr>
+          <tr><td>수행평가 AI 관리</td><td>교육부·17개 시도 「수행평가 시, 인공지능(AI) 활용 관리 방안」 2026학년도 적용. AI를 일률적으로 금지하지 않고, 교사가 활용 범위를 정하고 학생은 활용 과정을 표기합니다.</td><td><a href="https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=294&amp;boardSeq=104984&amp;lev=0&amp;m=020402" target="_blank" rel="noopener">교육부 ↗</a><br>2025-12-23</td></tr>
+          <tr><td>교육청 가이드라인</td><td>서울시교육청 「AI·에듀테크 공교육 도입 및 활용 가이드라인」(도입편·활용편). 5대 가치(주도성·합목적성·포용성·안전성·투명성)와 도입 전 점검 기준을 담았습니다.</td><td><a href="https://www.newsis.com/view/NISX20260226_0003527192" target="_blank" rel="noopener">뉴시스 ↗</a><br>2026-02-26</td></tr>
+          <tr><td>교사 AI 사용</td><td>주 1회 이상 사용 54.6%, ChatGPT 57.1%·Gemini 56.3%, 관련 법·정책을 안다 약 17%, 가장 큰 어려움은 학생 개인정보·학습데이터 처리 40.6%(초·중·고 교사 271명)</td><td><a href="https://nwww.newsis.com/view/NISX20261019_0003830861" target="_blank" rel="noopener">뉴시스(KEDI) ↗</a><br>2026-10-19</td></tr>
+          <tr><td>교사 에듀테크 사용</td><td>일반고 교사 63.4%가 최근 5년 안에 써 봄(KICE). 수업 지원 도구로는 패들렛·띵커벨이 많이 쓰임(러닝스파크 마켓맵)</td><td><a href="https://www.newsis.com/view/NISX20250102_0003017962" target="_blank" rel="noopener">뉴시스(KICE) ↗</a> 2025-01<br><a href="https://www.etnews.com/20250318000062" target="_blank" rel="noopener">전자신문(러닝스파크) ↗</a> 2025-03</td></tr>
         </tbody>
       </table></div>
       <p class="note" style="margin-top:10px">에듀집 공식 목록: <a href="https://edzip.kr" target="_blank" rel="noopener">edzip.kr ↗</a></p>
@@ -602,7 +628,8 @@ td a:hover{text-decoration:underline}
 <section id="viewLog" hidden>
   <div class="ph"><h2>작업 이력</h2><p>이 페이지를 고치거나 보탠 내역입니다. 최근 작업이 맨 위에 있습니다.</p></div>
   <div class="log">
-    <details class="box"><summary class="d">2026년 11월 26일 · 첫 회의 준비 <span class="cnt">19건</span></summary><ul>
+    <details class="box"><summary class="d">2026년 11월 26일 · 첫 회의 준비 <span class="cnt">20건</span></summary><ul>
+      <li><b>정책·기준 다시 확인</b>: 교육부 원문과 보도를 대조해 고쳤습니다(학습지원 SW 대상·제외 대상, 필수기준의 "처리정지·위탁", 선택기준 이름, AIDT 법 공포일, 경기도교육청 연령 안내, KEDI 조사의 "어려움" 항목 등). 2026년에 새로 나온 자료 6건을 더했고, 모든 항목에 출처 링크를 달았습니다.</li>
       <li><b>툴 정보 다시 확인</b>: 툴 37종의 요금·약관·도움말 페이지를 웹에서 다시 확인해 26종 42곳을 고쳤습니다(대부분 "미확인"이던 교사 무료·학생 사용 칸). 바뀐 카드에는 "11/26 업데이트" 표시가 붙고, 에듀테크 툴 화면 맨 아래 "정보 업데이트 내역"에서 출처 링크를 볼 수 있습니다. 에듀집 등재 여부는 이번에 확인하지 못했습니다.</li>
       <li><b>판매 순위 표시</b>: "참고 도서는 어떻게 묶었나" 위쪽에 판매지수 상위 10권과 그 짜임을 넣고, 대표 책 옆에도 판매 순위를 붙였습니다.</li>
       <li><b>참고 도서 짜임 유형</b>: 참고 도서 화면 위쪽에 "참고 도서는 어떻게 묶었나"를 펼쳐 볼 수 있게 넣었습니다. 목차가 있는 86권을 큰 제목 두 단계까지 보고 11가지로 나눴고, 유형마다 권수와 대표 책(누르면 목차로 이동)을 보여 줍니다.</li>
