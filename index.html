@@ -194,10 +194,11 @@ td a:hover{text-decoration:underline}
 .crit .note{margin-left:6px;color:var(--sub)}
 
 /* 참고 도서: 목록과 목차 */
-.bk{display:grid;grid-template-columns:minmax(0,400px) minmax(0,1fr);gap:16px;align-items:start}
+.bk{display:grid;grid-template-columns:minmax(0,400px) minmax(0,1fr);gap:16px;align-items:stretch}
 @media (max-width:900px){.bk{grid-template-columns:1fr}}
-.blist{background:var(--surface);border-radius:16px;padding:8px;max-height:calc(100vh - 120px);overflow:auto;position:sticky;top:12px}
-@media (max-width:900px){.blist{position:static;max-height:min(420px,60vh);scroll-margin-top:12px}.bview{scroll-margin-top:12px}}
+/* 넓은 화면: 목록 높이를 오른쪽 목차 높이에 맞추고(height:0 + min-height:100%), 넘치는 책은 목록 안에서 스크롤 */
+.blist{background:var(--surface);border-radius:16px;padding:8px;overflow:auto;height:0;min-height:100%}
+@media (max-width:900px){.blist{height:auto;min-height:0;max-height:min(420px,60vh);scroll-margin-top:12px}.bview{scroll-margin-top:12px}}
 .brow{display:grid;grid-template-columns:1fr auto;gap:2px 12px;width:100%;text-align:left;font:inherit;color:inherit;background:none;border:0;border-radius:12px;padding:12px;cursor:pointer}
 .brow:hover{background:var(--quiet)}
 .brow[aria-pressed="true"]{background:var(--accent-soft)}
